@@ -1,88 +1,99 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/no-children-prop */
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
-import { Cable, Sparkles, Users } from "lucide-react";
+import { Cable, Sparkles } from "lucide-react";
 
-import Component from "./navbar";
-import { CardContainer,  } from "@/components/ui/3d-card";
+import Component from "../components/navbar";
 import { ThreeDCardDemo } from "@/components/ui/threedCard";
-
-import { CardHoverEffectDemo } from "./features";
+import Features from "./features";
+import GradualSpacing from "@/components/ui/gradual-spacing";
+import FlickeringGrid from "@/components/ui/Dotbgdemo";
+import BoxReveal from "@/components/ui/box-reveal";
 
 export default function Home() {
   const { theme } = useTheme();
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted">
+    <div className="min-h-screen bg-gradient-to-b from-background to-muted relative">
       
-        
-      <header className="sticky pl-10  top-3 w-full border-b bg-background/80 backdrop-blur-sm ">
-        <Component/>
+     
+
+      <header className="sticky pl-10 top-3 w-full border-b bg-background/80 backdrop-blur-sm z-10">
+        <Component />
       </header>
 
-      <main className="container mx-auto px-4 pt-24">
+      <main className="container mx-auto px-4 pt-24 relative z-10">
         <section className="py-20 text-center">
-          <h1 className="text-4xl sm:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/50 bg-clip-text text-transparent">
-            One Link to Rule Them All
-          </h1>
+          <GradualSpacing text={"One Link to Rule Them All"} className="text-7xl font-semibold font-sans" />
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Create a beautiful, customizable link-in-bio page that showcases all your important links in one place.
           </p>
-         <div className="space-x-2">
-     <Link href="/dashboard" passHref>
-          
-     
-    <Button size="lg" className="w-full sm:w-auto">
-         <Cable></Cable>Create Your Linkroom
-      <Sparkles className="ml-2 h-4 w-4" />
-    </Button>
-  </Link>
+          <div className="space-x-2">
+            <Link href="/dashboard" passHref>
+              <Button size="lg" className="w-full sm:w-auto">
+                <Cable /> Create Your Linkroom
+                <Sparkles className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
             <Button size="lg" variant="outline" className="w-full sm:w-auto">
               View Demo
             </Button>
           </div>
-          
         </section>
 
         <section className="py-20">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <h2 className="text-3xl font-bold">Your Digital Identity, Simplified</h2>
-              <p className="text-lg text-muted-foreground">
-                Linkroom gives you a beautiful, customizable page to share all your links, social media profiles, and content in one place.
-              </p>
-              <ul className="space-y-4">
-                {[
-                  "Customizable themes and styles",
-                  "Analytics and insights",
-                  "Custom domains",
-                  "Social media integration",
-                ].map((feature) => (
-                  <li key={feature} className="flex items-center gap-2">
-                    <div className="h-2 w-2 rounded-full bg-primary" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
+              
+
+              <BoxReveal boxColor={"#5046e6"} duration={0.5}>
+        <p className="text-[3.5rem] font-semibold">
+        Your Digital Identity, Simplified<span className="text-[#5046e6]">.</span>
+        </p>
+      </BoxReveal>
+ 
+      <BoxReveal boxColor={"#5046e6"} duration={0.5}>
+        <h2 className="mt-[.5rem] text-[1rem]">
+        Linkroom gives you a beautiful, customizable page to share all your links, .{" "}
+          <span className="text-[#5046e6]">social media profiles, and content in one place</span>
+        </h2>
+      </BoxReveal>
+ 
+      <BoxReveal boxColor={"#5046e6"} duration={0.5}>
+        <div className="mt-6">
+          <p>
+            -&gt; Customizable themes and styles for your
+            <span className="font-semibold text-[#5046e6]"> Work</span>,
+            <span className="font-semibold text-[#5046e6]"> Friends</span>,
+            <span className="font-semibold text-[#5046e6]"> Loved Ones</span>,
+            and
+            <span className="font-semibold text-[#5046e6]"> And More...</span>
+            . <br />
+            -&gt; Analytics and insights <br />
+            -&gt; Custom Domains <br />
+            -&gt; Social media integration <br />
+          </p>
+        </div>
+      </BoxReveal>
+ 
+      <BoxReveal boxColor={"#5046e6"} duration={0.5}>
+        <Button className="mt-[1.6rem] bg-[#5046e6]">Explore</Button>
+      </BoxReveal>
+
             </div>
             <div className="relative aspect-square">
-              <ThreeDCardDemo
-                //src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1000&auto=format&fit=crop"
-              
-              />
+              <ThreeDCardDemo />
             </div>
           </div>
-          <CardHoverEffectDemo/>
+          <Features />
         </section>
-  
-       
       </main>
 
-      <footer className="border-t">
+      <footer className="border-t relative z-10">
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center space-x-2">

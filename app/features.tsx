@@ -1,49 +1,44 @@
-import { Sparkles, Users, Link } from "lucide-react"; // Adjust to the actual icon library you're using
-import { useTheme } from "next-themes";
+import { Card, CardContent } from "@/components/ui/card"
+import { Link, Sparkles, Users } from "lucide-react"
 
-export function CardHoverEffectDemo() {
-  const { theme } = useTheme(); // Access the current theme
-
-  const features = [
-    {
-      icon: Sparkles,
-      title: "Beautiful Themes",
-      description: "Choose from a wide range of professionally designed themes or create your own.",
-    },
-    {
-      icon: Users,
-      title: "Built for Creators",
-      description: "Perfect for influencers, artists, businesses, and anyone who wants to share multiple links.",
-    },
-    {
-      icon: Link,
-      title: "Custom Domains",
-      description: "Use your own domain name for a more professional and branded experience.",
-    },
-  ];
-
+export default function Features() {
   return (
-    <div className="max-w-5xl mx-auto px-8 py-20 text-center">
-      <h2 className="text-3xl font-bold mb-12">Why Choose Linkroom?</h2>
-      <div
-        className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 
-        
-        }`}
-      >
-        {features.map((feature) => (
-          <div
-            key={feature.title}
-            className="p-6 rounded-lg hover:shadow-lg transition-shadow border bg-slate-300"
-            style={{
-             
-            }}
-          >
-            <feature.icon className="h-12 w-12 mx-auto mb-4 text-primary" />
-            <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-            <p>{feature.description}</p>
-          </div>
-        ))}
+    <div className="container px-4 py-8">
+      <div className="grid gap-6 md:grid-cols-3">
+        <Card className="group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+          <CardContent className="flex flex-col items-center gap-4 p-6 text-center">
+            <div className="rounded-full bg-primary/10 p-3 text-primary">
+              <Sparkles className="h-6 w-6" />
+            </div>
+            <h3 className="text-xl font-bold">Beautiful Themes</h3>
+            <p className="text-muted-foreground">
+              Choose from a wide range of professionally designed themes or create your own.
+            </p>
+          </CardContent>
+        </Card>
+        <Card className="group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+          <CardContent className="flex flex-col items-center gap-4 p-6 text-center">
+            <div className="rounded-full bg-primary/10 p-3 text-primary">
+              <Users className="h-6 w-6" />
+            </div>
+            <h3 className="text-xl font-bold">Built for Creators</h3>
+            <p className="text-muted-foreground">
+              Perfect for influencers, artists, businesses, and anyone who wants to share multiple links.
+            </p>
+          </CardContent>
+        </Card>
+        <Card className="group relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+          <CardContent className="flex flex-col items-center gap-4 p-6 text-center">
+            <div className="rounded-full bg-primary/10 p-3 text-primary">
+              <Link className="h-6 w-6" />
+            </div>
+            <h3 className="text-xl font-bold">Custom Domains</h3>
+            <p className="text-muted-foreground">
+              Use your own domain name for a more professional and branded experience.
+            </p>
+          </CardContent>
+        </Card>
       </div>
     </div>
-  );
+  )
 }
