@@ -3,7 +3,7 @@
 import Link from "next/link"
 
 import { Cable, Moon, Sun } from "lucide-react"
-import { useTheme } from "@/context/ThemeContext"
+import { useTheme } from "next-themes"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -69,7 +69,7 @@ export default function Component() {
       <Link href="/auth/login">Log in</Link>
     </Button>
     <Button asChild>
-      <Link href="/templates">Sign up free</Link>
+      <Link href="/auth/signup">Sign up free</Link>
     </Button>
         </div>
       </div>
