@@ -59,7 +59,7 @@ export default function LoginPage() {
     setIsLoading(false)
 
     
-    router.push('/home')
+    router.push('/')
   }
 
   const handleSocialLogin = (provider: string) => {

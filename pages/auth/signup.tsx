@@ -1,42 +1,43 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+'use client'
 import '../../app/globals.css'
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { AuthFormData } from '../../types/auth';
-import { FcGoogle } from 'react-icons/fc';
-import { FaGithub, FaTwitter } from 'react-icons/fa';
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { FcGoogle } from 'react-icons/fc'
+import { FaGithub, FaTwitter } from 'react-icons/fa'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 
-const Signup = () => {
-  const [formData, setFormData] = useState<AuthFormData>({ email: '', password: '' });
-  const router = useRouter();
+export default function SignupPage() {
+  const [formData, setFormData] = useState({ email: '', password: '' })
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const router = useRouter()
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    });
-  };
+    })
+  }
 
   const handleSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
+  
+    console.log('Signup with:', formData)
+  }
 
-    const res = await fetch('/api/auth/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
-
-    if (res.ok) {
-      router.push('/auth/login');
-    } else {
-      alert('Signup failed');
-    }
-  };
-
-  const handleOAuthLogin = async (provider: string) => {
-    // You would replace this with actual OAuth logic, possibly using NextAuth
-    router.push(`/api/auth/${provider}`);
-  };
+  const handleOAuthLogin = (provider: string) => {
+    setIsModalOpen(true)
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -45,35 +46,32 @@ const Signup = () => {
         
         <form onSubmit={handleSignup} className="space-y-4">
           <div>
-            <label className="block text-gray-700">Email</label>
-            <input
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
               type="email"
               name="email"
               value={formData.email}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           
           <div>
-            <label className="block text-gray-700">Password</label>
-            <input
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
               type="password"
               name="password"
               value={formData.password}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 focus:ring-2 focus:ring-blue-500"
-          >
+          <Button type="submit" className="w-full">
             Sign Up
-          </button>
+          </Button>
         </form>
 
         <div className="flex items-center justify-center mt-6">
@@ -81,37 +79,43 @@ const Signup = () => {
         </div>
         
         <div className="flex space-x-4 mt-4 justify-center">
-          <button
-            onClick={() => handleOAuthLogin('google')}
-            className="flex items-center px-4 py-2 border rounded-lg hover:bg-gray-100"
-          >
-            <FcGoogle className="text-2xl" />
-            <span className="ml-2 text-gray-700">Google</span>
-          </button>
+          <Button variant="outline" onClick={() => handleOAuthLogin('google')}>
+            <FcGoogle className="mr-2 h-4 w-4" />
+            Google
+          </Button>
           
-          <button
-            onClick={() => handleOAuthLogin('github')}
-            className="flex items-center px-4 py-2 border rounded-lg hover:bg-gray-100"
-          >
-            <FaGithub className="text-2xl text-gray-800" />
-            <span className="ml-2 text-gray-700">GitHub</span>
-          </button>
+          <Button variant="outline" onClick={() => handleOAuthLogin('github')}>
+            <FaGithub className="mr-2 h-4 w-4" />
+            GitHub
+          </Button>
           
-          <button
-            onClick={() => handleOAuthLogin('twitter')}
-            className="flex items-center px-4 py-2 border rounded-lg hover:bg-gray-100"
-          >
-            <FaTwitter className="text-2xl text-blue-400" />
-            <span className="ml-2 text-gray-700">Twitter</span>
-          </button>
+          <Button variant="outline" onClick={() => handleOAuthLogin('twitter')}>
+            <FaTwitter className="mr-2 h-4 w-4" />
+            Twitter
+          </Button>
         </div>
 
         <p className="mt-6 text-sm text-center text-gray-600">
-          Already have an account? <a href="/auth/login" className="text-blue-500 hover:underline">Log in</a>
+          Already have an account?{' '}
+          <Link href="/login" className="text-primary hover:underline">
+            Log in
+          </Link>
         </p>
       </div>
-    </div>
-  );
-};
 
-export default Signup;
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="text-center text-2xl font-bold">Oops!</DialogTitle>
+            <DialogDescription className="text-center text-lg">
+              Abhi Tak nhi hua Bhaiya, Maaf Kardio
+            </DialogDescription>
+          </DialogHeader>
+          <div className="mt-6 flex justify-center">
+            <Button onClick={() => setIsModalOpen(false)}>Close</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
+  )
+}
